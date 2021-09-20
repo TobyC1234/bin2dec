@@ -1,0 +1,46 @@
+from math IMPORT log2, ceil
+
+from copy IMPORT deepcopy
+
+
+
+DEFINE FUNCTION bintodec(bin): # Converts binary to decimal
+
+	SET dec TO 0
+
+	SET bin TO str(bin)
+
+	FOR i IN range(len(bin)): # Iterate over the binary number
+
+		IF bin[i] EQUALS "1": # If the binary number is a one we want to add the corresponding power of 2
+
+			dec += 2**(len(bin)-i)
+
+	RETURN dec//2 # Have to half it as dec comes out to 2 times the expected value
+
+
+
+DEFINE FUNCTION dectobin(dec): # Converts decimal to binary
+
+	IF dec EQUALS 0: # Edge case
+
+		RETURN "0"
+
+	SET bin TO ""
+
+	SET dl TO deepcopy(dec)
+
+	FOR i IN range(ceil(log2(dec))+1, -1, -1): # If we can take away a power of 2 (going highest to lowest)
+
+		IF dl - 2**i >= 0:
+
+			bin += "1"
+
+			dl -= 2**i
+
+		ELSE:
+
+			bin += "0"
+
+	RETURN bin
+
